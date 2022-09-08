@@ -36,5 +36,12 @@ public class Main {
         maxHeap.printHeap();
         System.out.println(maxHeap.extractMax());
         maxHeap.printHeap();
+        //Heap sort
+        System.out.println("******************HeapSort***********************************");
+        int a[] = {0, 2, 9, 4, 7, 1, 6, 8};
+        MinHeap minHeap2 = new MinHeap(a);
+        minHeap2.printHeap();
+
+        minHeap2.heapSort();
     }
 }
