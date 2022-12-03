@@ -1,6 +1,7 @@
 package com.coding.datastructures.Graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -47,20 +48,56 @@ public class GraphWithAdjacentList {
             }
         }
     }
+    public static void bfsDist(int src, boolean vis[], int dis[]) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(src);
+        vis[src] = true;
+        dis[src] = 0;
+
+        while(!q.isEmpty()) {
+            int cur = q.poll();
+            System.out.print(cur+" ");
+
+            for(Integer neighbor: a.get(cur)) {
+                if(!vis[neighbor]) {
+                    dis[neighbor] = dis[cur] + 1;
+                    q.add(neighbor);
+                    vis[neighbor] = true;
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        int v = 4;
+        int v = 8;
         GraphWithAdjacentList graph = new GraphWithAdjacentList(v);
 
         graph.addEdge(0, 1);
-        graph.addEdge(2, 3);
-        graph.addEdge(0, 3);
         graph.addEdge(2, 1);
+        graph.addEdge(0, 3);
+
+        graph.addEdge(3, 6);
+        graph.addEdge(5, 7);
+        graph.addEdge(2, 7);
+
+        graph.addEdge(4, 5);
+        graph.addEdge(5, 6);
+        graph.addEdge(4, 6);
 
         boolean vis[] = new boolean[v];
         //dfs
         //dfs(0,vis);
-        bfs(0,vis);
+        //bfs(0,vis);
+
+        // shortest path in a graph
+		int dis[] = new int[v];
+		Arrays.fill(dis, Integer.MAX_VALUE);
+
+		bfsDist(0, vis, dis);
+        System.out.println();
+		for(int i = 0; i<v; i++) {
+			System.out.println(i+" "+dis[i]);
+		}
 
     }
 

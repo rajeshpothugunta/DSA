@@ -1,6 +1,6 @@
 package com.coding.Algorithms;
 //RKP algorithm which uses hashing and collision concept
-public class StringPatternMatching {
+public class RabinKarpAlgorithm {
     // d is the number of characters in the input alphabet
     public final static int d = 26;
 
