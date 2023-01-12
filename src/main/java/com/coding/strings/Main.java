@@ -1,6 +1,6 @@
 package com.coding.strings;
 
-import java.util.ArrayDeque;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,8 +20,10 @@ public class Main {
         //System.out.println(isAnagram("rat", "tatr"));
         //System.out.println(reverseWords("the sky is blue"));
         //System.out.println(isSubsequence("abc","ahbgdc"));
-        String S1 = "takeyouforward";
-        System.out.println(firstRepeating(S1.toCharArray()));
+        //String S1 = "takeyouforward";
+        //System.out.println(firstRepeating(S1.toCharArray()));
+        //System.out.println(removeOccurrences("daabccbaabcbc","abc"));
+        System.out.println(lengthOfLongestSubstring2("abcabcbb"));
     }
     public static boolean isPalindrome(String S){
         char[] arr = S.toCharArray();
@@ -177,6 +179,40 @@ public class Main {
         }
         return false;
     }
+    public static String removeOccurrences(String s, String part) {
+        Stack<Character> stack = new Stack<Character>();
+        int n = s.length();
+        int m = part.length();
+
+        for (int i = 0; i < n; i++){
+            stack.add(s.charAt(i));
+            if (stack.size() >= m){
+                String l = "";
+                for (int j = m - 1; j >= 0; j--){
+                    if (part.charAt(j) != stack.peek()){
+                        int f = 0;
+                        while (f != l.length()){
+                            stack.add(l.charAt(f));
+                            f++;
+                        }
+                        break;
+                    }
+                    else{
+                        l = stack.peek() + l;
+                        stack.pop();
+                    }
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty()) {
+            sb.append(stack.peek());
+            stack.pop();
+        }
+        sb.reverse();
+        return sb.toString();
+    }
     static boolean checkEqual(int a[] ,int b[]) {
         for (int i = 0; i < 26; i++) {
             if (a[i] != b[i])
@@ -263,5 +299,42 @@ public class Main {
         }
         return index;
     }
+    //code for finding length of longest substring without repeating characters
+    static int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        Set<Character> set = new HashSet<>();
+        int ans = 0, i = 0, j = 0;
+        while (i < n && j < n) {
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j++));
+                ans = Math.max(ans, j - i);
+            } else {
+                set.remove(s.charAt(i++));
+            }
+        }
+        return ans;
+    }
+    static int lengthOfLongestSubstring2(String s) {
+        int n = s.length();
+        int ans = 0;
+        Map<Character, Integer> map = new HashMap<>(); // current index of character
+        // try to extend the range [i, j]
+        for (int j = 0, i = 0; j < n; j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)), i);
+            }
+            ans = Math.max(ans, j - i + 1);
+            map.put(s.charAt(j), j + 1);
+        }
+        return ans;
+    }
 
+    //code to Check if strings are rotations of each other or not
+    static boolean areRotations(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        String temp = s1 + s1;
+        return temp.contains(s2);
+    }
 }

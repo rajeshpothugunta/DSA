@@ -2,10 +2,10 @@ package com.coding.patterns;
 
 public class Main {
     public static void main(String[] args) {
-        //pattern1(5);
+        pattern7(5);
         //pattern2(5);
         //pattern3(5);
-        pattern9(5);
+        //pattern9(5);
 
     }
 
