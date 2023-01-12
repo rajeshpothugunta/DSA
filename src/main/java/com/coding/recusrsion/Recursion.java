@@ -113,6 +113,73 @@ public class Recursion {
         generateSubsets(index + 1, str, current + str.charAt(index), subsets);
     }
 
+    //permuation of string
+    public static List<String> getPermutations(String str) {
+        List<String> permutations = new ArrayList<>();
+        generatePermutations(0, str, permutations);
+        return permutations;
+    }
+    private static void generatePermutations(int index, String str, List<String> permutations) {
+        if (index >= str.length() - 1) {
+            permutations.add(str);
+            return;
+        }
+
+        for (int i = index; i < str.length(); i++) {
+            // Swap characters at index i and index index
+            str = swap(str, index, i);
+
+            // Recurse on the string with index + 1
+            generatePermutations(index + 1, str, permutations);
+
+            // Backtrack by swapping the characters again
+            str = swap(str, index, i);
+        }
+    }
+    private static String swap(String a, int i, int j) {
+        char temp;
+        char[] charArray = a.toCharArray();
+        temp = charArray[i];
+        charArray[i] = charArray[j];
+        charArray[j] = temp;
+        return String.valueOf(charArray);
+    }
+
+    //permutation of array
+    public static List<List<Integer>> getPermutations(int[] nums) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        generatePermutations(0, nums, permutations);
+        return permutations;
+    }
+
+    private static void generatePermutations(int index, int[] nums, List<List<Integer>> permutations) {
+        if (index >= nums.length - 1) {
+            List<Integer> currentPermutation = new ArrayList<>();
+            for (int num : nums) {
+                currentPermutation.add(num);
+            }
+            permutations.add(currentPermutation);
+            return;
+        }
+
+        for (int i = index; i < nums.length; i++) {
+            // Swap elements at indices index and i
+            swap(nums, index, i);
+
+            // Recurse on the subarray arr[index + 1...end]
+            generatePermutations(index + 1, nums, permutations);
+
+            // Backtrack by swapping the elements back
+            swap(nums, index, i);
+        }
+    }
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+
 
 
 

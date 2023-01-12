@@ -38,7 +38,6 @@ public class Main {
     }
     static void isPalindrome2(String S){
         StringBuilder sb = new StringBuilder("");
-        int ptr =0;
         for (int i = 0; i < S.length(); i++) {
             char ch = S.charAt(i);
             if((ch>='a' && ch<='z') || (ch>='0' && ch<='9'))
@@ -73,12 +72,12 @@ public class Main {
             int num = ch - 'a';
             arr[num]++;
         }
-        int maxidx=-1;//stores max count value in that index
+        int maxCount=-1;//stores max count value in that index
         int ans=-1;//stores index of array
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > maxidx){
+            if (arr[i] > maxCount){
                 ans=i;
-                maxidx=arr[i];
+                maxCount=arr[i];
             }
         }
         char finalAns = (char) ('a'+ans);
@@ -143,6 +142,18 @@ public class Main {
 
         return str;
     }
+    //replace spaces with %20
+    public static String replaceSpaces2(String S){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length(); i++) {
+            char ch = S.charAt(i);
+            if(ch == ' ')
+                sb.append("%20");
+            else
+                sb.append(ch);
+        }
+        return sb.toString();
+    }
     static boolean checkIsPermutation(String s1,String s2){
         if(s1.length()>s2.length())
             return false;
@@ -179,6 +190,7 @@ public class Main {
         }
         return false;
     }
+
     public static String removeOccurrences(String s, String part) {
         Stack<Character> stack = new Stack<Character>();
         int n = s.length();
@@ -212,6 +224,12 @@ public class Main {
         }
         sb.reverse();
         return sb.toString();
+    }
+    public String removeOccurrences2(String s, String part) {
+        while(s.length()!=0 && s.contains(part)){
+            s= s.replaceFirst(part,"");
+        }
+        return s;
     }
     static boolean checkEqual(int a[] ,int b[]) {
         for (int i = 0; i < 26; i++) {
@@ -262,6 +280,17 @@ public class Main {
         }
         return new String(c,0,i);
     }
+    //remove duplicates from string
+    public static String removeDuplicates2(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(sb.length() == 0 || sb.charAt(sb.length()-1) != ch)
+                sb.append(ch);
+        }
+        return sb.toString();
+    }
+
     static int firstRepeating(char[] str) {
         int[] firstIndex = new int[256];
         int res = Integer.MAX_VALUE;
@@ -272,6 +301,20 @@ public class Main {
             if (firstIndex[str[i]] > 1) {
                 return i;
             }
+        }
+        return -1;
+    }
+    //first repeating character
+    public static int firstRepeating2(String s) {
+        int[] freq = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            freq[ch-'a']++;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(freq[ch-'a'] > 1)
+                return i;
         }
         return -1;
     }

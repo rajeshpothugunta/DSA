@@ -584,6 +584,70 @@ public class ArrayPrograms {
 
         return duplicates;
     }
+    //Merge sorted array
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int[] arr=new int[n+m];
+        int i=0;
+        int j=0;
+        int k=0;
+        while(i<m && j<n){
+            if(nums1[i]<nums2[j]){
+                arr[k++]=nums1[i++];
+            }
+            else{
+                arr[k++]=nums2[j++];
+            }
+        }
+        //copy first array k elemnts
+        while(i<m){
+            arr[k++]=nums1[i++];
+        }
+        //copy second array k elemnts
+        while(j<n){
+            arr[k++]=nums2[j++];
+        }
+        for(int l=0;l<arr.length;l++){
+            nums1[l]=arr[l];
+        }
+    }
+    //container with most water
+    public int maxArea(int[] height) {
+        int max=0;
+        int i=0;
+        int j=height.length-1;
+        while(i<j){
+            int area=Math.min(height[i],height[j])*(j-i);
+            max=Math.max(max,area);
+            if(height[i]<height[j]){
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+        return max;
+    }
+    //Trapping rain water
+    public int trap(int[] height) {
+        int n=height.length;
+        int[] left=new int[n];
+        int[] right=new int[n];
+        int water=0;
+        left[0]=height[0];
+        for(int i=1;i<n;i++){
+            left[i]=Math.max(left[i-1],height[i]);
+        }
+        right[n-1]=height[n-1];
+        for(int i=n-2;i>=0;i--){
+            right[i]=Math.max(right[i+1],height[i]);
+        }
+        for(int i=0;i<n;i++){
+            water+=Math.min(left[i],right[i])-height[i];
+        }
+        return water;
+    }
+
+
 
 
 }
